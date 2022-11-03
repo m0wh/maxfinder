@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAXFinder</title>
+  <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica", sans-serif;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .pages a, .pages span {
+      margin: 0 10px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+
+    a {
+      color: #fff;
+    }
+
+    table {
+      /* width: 100%; */
+      margin: 100px auto 0;
+      border: none;
+      border-collapse: collapse;
+    }
+
+    .mono {
+      font-family: monospace;
+    }
+
+    .w {
+      width: 100%;
+    }
+
+    th {
+      background: #000 !important;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+    }
+
+    tr {
+      width: 100%;
+    }
+    tr:nth-of-type(2n+1) {
+      background: #111;
+    }
+    tr:nth-of-type(2n) {
+      background: #222;
+    }
+
+    td, th {
+      text-align: center;
+      padding: 16px 20px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th>train</th>
+      <th>departure</th>
+      <th>arrival</th>
+      <th>duration</th>
+      <th class="w">to</th>
+    </tr>
+    <% for (train of trains) { %>
+      <tr>
+        <td class="mono"><%= train.train %></td>
+        <td><%= train.departure.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
+        <td><%= train.arrival.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
+        <%
+          var hours = Math.floor((train.arrival - train.departure) / 3.6e6)
+          var minutes = Math.floor(((train.arrival - train.departure) % 3.6e6) / 6e4)
+        %>
+        <td><%= new Date(2022, 1, 10, hours, minutes).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
+        <td class="w"><%= train.to %></td>
+      </tr>
+    <% } %>
+    <tr>
+      <th colspan="5" class="pages">
+        <% for (var i = 0; i < lastPage + 1; i++) { %>
+          <% if (i === page) { %>
+            <span><%= i + 1 %></span>
+          <% } else { %>
+            <a href="<%= `?p=${i}` %>"><%= i + 1 %></a>
+          <% } %>
+        <% } %>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
