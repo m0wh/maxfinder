@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon --exec babel-node app.js",
-    "build": "babel app.js"
+    "build": "babel-node app.js"
   },
   "author": "Malo Widerspach <malo.dewiderspach@gmail.com>",
   "license": "MIT",
