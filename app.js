@@ -5,7 +5,7 @@ const app = express()
 app.set('view engine', 'ejs')
 
 const config = {
-  port: process.env.PORT || 3000
+  port: process.env.PORT || 3000
 }
 
 app.get('/', (req, res) => {
