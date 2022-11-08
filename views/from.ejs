@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAXFinder</title>
+  <title>MAXFinder - Trains depuis <%= trains[0].from.name %> le <%= (new Date(date)).toLocaleDateString('fr-FR') %></title>
   <style>
     *, *:before, *:after {
       box-sizing: border-box;
@@ -21,17 +21,18 @@
       margin: 0 10px;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-      margin: 0;
-    }
-
     a {
       color: #fff;
     }
 
+    h1 {
+      text-align: center;
+      margin: 40px 0;
+    }
+
     table {
       /* width: 100%; */
-      margin: 100px auto 0;
+      margin: 30px auto 0;
       border: none;
       border-collapse: collapse;
     }
@@ -41,7 +42,7 @@
     }
 
     .w {
-      width: 100%;
+      /* width: 100%; */
     }
 
     th {
@@ -69,6 +70,7 @@
   </style>
 </head>
 <body>
+  <h1>Trains depuis <%= trains[0].from.name %> le <%= (new Date(date)).toLocaleDateString('fr-FR') %></h1>
   <table>
     <tr>
       <th>train</th>
@@ -79,7 +81,7 @@
     </tr>
     <% for (train of trains) { %>
       <tr>
-        <td class="mono"><%= train.train %></td>
+        <td class="mono"><%= train.train_no %></td>
         <td><%= train.departure.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
         <td><%= train.arrival.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
         <%
@@ -87,7 +89,7 @@
           var minutes = Math.floor(((train.arrival - train.departure) % 3.6e6) / 6e4)
         %>
         <td><%= new Date(2022, 1, 10, hours, minutes).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
-        <td class="w"><%= train.to %></td>
+        <td class="w"><%= train.to.name %></td>
       </tr>
     <% } %>
     <tr>
