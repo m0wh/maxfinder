@@ -10,13 +10,14 @@ const config = {
 }
 
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render('index', { places: stations })
 })
 
 app.get('/from/:from/:year/:month/:day', async (req, res, next) => {
+  const fromStation = stations.find(s => s.city_id === req.params.from)
   const date = req.params.year + '-' + req.params.month + '-' + req.params.day
   try {
-    const data = await getTrains(req.params.from, undefined, date, 100, req.query.p)
+    const data = await getTrains(fromStation.tgvmax_name, undefined, date, 100, req.query.p)
     const page = parseInt(req.query.p || 0)
     const lastPage = Math.floor(data.total_count / 100)
     const trains = data.trains.map(t => ({
@@ -32,9 +33,10 @@ app.get('/from/:from/:year/:month/:day', async (req, res, next) => {
 })
 
 app.get('/to/:to/:year/:month/:day', async (req, res, next) => {
+  const toStation = stations.find(s => s.city_id === req.params.to)
   const date = req.params.year + '-' + req.params.month + '-' + req.params.day
   try {
-    const data = await getTrains(undefined, req.params.to, date, 100, req.query.p)
+    const data = await getTrains(undefined, toStation.tgvmax_name, date, 100, req.query.p)
     const page = parseInt(req.query.p || 0)
     const lastPage = Math.floor(data.total_count / 100)
     const trains = data.trains.map(t => ({
@@ -49,4 +51,4 @@ app.get('/to/:to/:year/:month/:day', async (req, res, next) => {
   }
 })
 
-app.listen(config.port, () => console.log(`Server listening on localhost:${config.port}`))
+app.listen(config.port, () => console.log(`Server listening on http://localhost:${config.port}`))

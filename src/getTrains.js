@@ -8,7 +8,7 @@ export default async function getTrains (from, to, date, results = 10, page = 0)
 
   url.searchParams.set('where', where)
   url.searchParams.set('limit', results)
-  url.searchParams.set('order_by', 'heure_depart')
+  url.searchParams.set('order_by', 'heure_depart,heure_arrivee')
   url.searchParams.set('offset', page * results)
   url.searchParams.set('timezone', 'UTC')
 
