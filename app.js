@@ -1,6 +1,7 @@
 import express from 'express'
 import getTrains from './src/getTrains'
-import stations from './src/stations.json'
+import st from './src/stations.json'
+const stations = st.filter(s => s.tgvmax_name !== 'TBD')
 
 const app = express()
 app.set('view engine', 'ejs')

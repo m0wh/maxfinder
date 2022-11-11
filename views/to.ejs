@@ -45,6 +45,10 @@
       /* width: 100%; */
     }
 
+    small {
+      opacity: .7;
+    }
+
     th {
       background: #000 !important;
       text-transform: uppercase;
@@ -64,8 +68,14 @@
 
     td, th {
       text-align: center;
-      padding: 16px 20px;
+      padding: 16px 8px;
       border: none;
+    }
+
+    @media screen and (min-width: 580px) {
+      td, th {
+        padding: 16px 20px;
+      }
     }
   </style>
 </head>
@@ -74,22 +84,22 @@
   <table>
     <tr>
       <th>train</th>
+      <th class="w">from</th>
       <th>departure</th>
       <th>arrival</th>
       <th>duration</th>
-      <th class="w">from</th>
     </tr>
     <% for (train of trains) { %>
       <tr>
         <td class="mono"><%= train.train_no %></td>
+        <td class="w"><%= train.from.name %></td>
         <td><%= train.departure.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
         <td><%= train.arrival.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
         <%
           var hours = Math.floor((train.arrival - train.departure) / 3.6e6)
           var minutes = Math.floor(((train.arrival - train.departure) % 3.6e6) / 6e4)
         %>
-        <td><%= new Date(2022, 1, 10, hours, minutes).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
-        <td class="w"><%= train.from.name %></td>
+        <td><small><%= new Date(2022, 1, 10, hours, minutes).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></small></td>
       </tr>
     <% } %>
     <tr>
