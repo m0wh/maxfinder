@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <% if (typeof title === 'string') { %>
+    <title>MAXFinder - <%= title %></title>
+  <% } else { %>
+    <title>MAXFinder</title>
+  <% } %>
+  <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica", sans-serif;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .pages a, .pages span {
+      margin: 0 10px;
+    }
+
+    a {
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    table {
+      /* width: 100%; */
+      margin: 30px auto 0;
+      border: none;
+      border-collapse: collapse;
+    }
+
+    .mono {
+      font-family: monospace;
+    }
+
+    .w {
+      /* width: 100%; */
+    }
+
+    small {
+      opacity: .7;
+    }
+
+    th {
+      background: #000 !important;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+    }
+
+    tr {
+      width: 100%;
+    }
+    tr:nth-of-type(2n+1) {
+      background: #111;
+    }
+    tr:nth-of-type(2n) {
+      background: #222;
+    }
+
+    td, th {
+      text-align: center;
+      padding: 16px 20px;
+      border: none;
+    }
+  </style>
+  <%- style %>
+</head>
+<body>
+  <%- include('../components/header') %>
+  <%- body %>
+  <%- script %>
+</body>
+</html>

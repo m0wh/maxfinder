@@ -1,0 +1,37 @@
+<h1><%= title %></h1>
+
+<table>
+  <tr>
+    <th>train</th>
+    <th class="w">from</th>
+    <th class="w">to</th>
+    <th>departure</th>
+    <th>arrival</th>
+    <th>duration</th>
+  </tr>
+  <% for (train of trains) { %>
+    <tr>
+      <td class="mono"><%= train.train_no %></td>
+      <td class="w"><%= train.from.name %></td>
+      <td class="w"><%= train.to.name %></td>
+      <td><%= train.departure.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
+      <td><%= train.arrival.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
+      <%
+        var hours = Math.floor((train.arrival - train.departure) / 3.6e6)
+        var minutes = Math.floor(((train.arrival - train.departure) % 3.6e6) / 6e4)
+      %>
+      <td><small><%= new Date(2022, 1, 10, hours, minutes).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></small></td>
+    </tr>
+  <% } %>
+  <tr>
+    <th colspan="6" class="pages">
+      <% for (var i = 0; i < lastPage + 1; i++) { %>
+        <% if (i === page) { %>
+          <span><%= i + 1 %></span>
+        <% } else { %>
+          <a href="<%= `?p=${i}` %>"><%= i + 1 %></a>
+        <% } %>
+      <% } %>
+    </td>
+  </tr>
+</table>

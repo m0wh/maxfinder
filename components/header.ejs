@@ -1,0 +1,44 @@
+<style>
+  header {
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    align-items: center;
+  }
+
+  header h1 {
+    font-size: 14px;
+    margin: 0;
+  }
+</style>
+
+<header>
+  <select id="action">
+    <option value="from">Depuis</option>
+    <option value="to">Vers</option>
+  </select>
+
+  <input type="text" id="city" list="cities">
+
+  <datalist id="cities">
+    <% for (city of cities) { %>
+      <option value="<%= city.city_id %>"><%= city.city %></option>
+    <% } %>
+  </datalist>
+
+  <input type="date" id="date">
+
+  <button id="search" type="button">Recherche</button>
+</header>
+
+<script>
+  document.querySelector('header #search').addEventListener('click', () => {
+    const action = document.querySelector('header #action').value
+    const city = document.querySelector('header #city').value
+    const date = document.querySelector('header #date').value
+    const url = `/map/${action}/${city}/${date.replace(/-/g, '/')}`
+    location.href = url
+  })
+</script>
