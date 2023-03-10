@@ -22,6 +22,7 @@
     }))
   }
 
+  
   const direction = window.location.pathname.split('/')[2] === 'from' ? 'to' : 'from'
 
   const map = L.map('map').setView([46.8437381,3.1047776], 6)
@@ -31,9 +32,9 @@
     attribution: `${locals.title}`
   }).addTo(map);
 
-  const placesToShow = [...new Set(locals.trains.map(t => t[direction].city_id))]
+  const placesToShow = [...new Set(locals.trains.map(t => t[direction]?.city_id))]
   const markers = placesToShow.map(placeId => {
-    const routes = locals.trains.filter(t => t[direction].city_id === placeId)
+    const routes = locals.trains.filter(t => t[direction]?.city_id === placeId)
     const place = routes[0][direction]
     const m = L.marker([place.location.lat, place.location.lng]).addTo(map)
     const str = routes.map(r => `${r.departure.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${r.arrival.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} (<span class="mono">${r.train_no}</span>)`).join('<br>')
